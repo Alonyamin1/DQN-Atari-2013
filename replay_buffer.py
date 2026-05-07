@@ -54,17 +54,17 @@ class ReplayBuffer:
 
         Returns:
             Tuple of numpy arrays: (states, actions, rewards, next_states, dones)
-            States are converted to float32 here (stored as uint8 to save memory)
+            States converted from uint8 to float32 for network
         """
         batch = random.sample(self.buffer, batch_size)
 
         states, actions, rewards, next_states, dones = zip(*batch)
 
         return (
-            np.array(states, dtype=np.float32),      # Convert uint8 -> float32
+            np.array(states, dtype=np.float32),      # uint8 -> float32
             np.array(actions),
             np.array(rewards, dtype=np.float32),
-            np.array(next_states, dtype=np.float32), # Convert uint8 -> float32
+            np.array(next_states, dtype=np.float32), # uint8 -> float32
             np.array(dones, dtype=np.float32),
         )
 

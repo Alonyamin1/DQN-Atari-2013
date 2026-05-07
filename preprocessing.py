@@ -95,7 +95,7 @@ class FrameStack:
 
         Returns:
             Array of shape (4, 84, 84), values 0-255 as uint8
-            (saves memory for large replay buffers - 1M states)
+            (saves memory for 1M replay buffer)
             (conversion to float32 and normalization done in model.py)
         """
         state = np.array(self.frames, dtype=np.uint8)

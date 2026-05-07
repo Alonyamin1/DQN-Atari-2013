@@ -177,7 +177,7 @@ def load_checkpoint(path, agent):
 
 
 def train(
-    total_steps=1000000,  # Paper: 10M frames / 4 skip = 2.5M steps. We use 1M.
+    total_steps=2500000,  # Paper: 10M frames / 4 skip = 2.5M steps
     eval_freq=10000,
     eval_episodes=5,
     run_id=1,
@@ -221,7 +221,7 @@ def train(
         device=device,
         learning_rate=0.00025,       # Paper: 0.00025
         gamma=0.99,                  # Paper: 0.99
-        buffer_size=100000,          # Paper: 1,000,000 (reduced for memory ~5.5GB)
+        buffer_size=1000000,         # Paper: 1,000,000
         batch_size=32,               # Paper: 32
         epsilon_start=1.0,           # Paper: 1.0
         epsilon_end=0.1,             # Paper: 0.1
@@ -352,7 +352,7 @@ def train(
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train DQN on Qbert")
     parser.add_argument("--run_id", type=int, default=1, help="Training run ID (1, 2, or 3)")
-    parser.add_argument("--steps", type=int, default=1000000, help="Total training steps")
+    parser.add_argument("--steps", type=int, default=2500000, help="Total training steps")
     parser.add_argument("--eval_freq", type=int, default=10000, help="Evaluation frequency")
     parser.add_argument("--eval_episodes", type=int, default=5, help="Episodes per evaluation")
     parser.add_argument("--resume", action="store_true", help="Resume training from checkpoint")

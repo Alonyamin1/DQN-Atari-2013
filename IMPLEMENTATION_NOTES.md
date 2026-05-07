@@ -60,31 +60,28 @@ def forward(self, x):
 
 ## Memory Optimization
 
-### Problem: 1 Million Buffer Too Large
+### Problem: 1 Million Buffer Memory Requirements
 The paper uses a replay buffer of 1 million transitions. Memory requirement:
 - Each state: 4 frames × 84 × 84 pixels = 28,224 values
 - Each transition stores: state + next_state + action + reward + done
-- With float32: ~56 KB per transition
-- 1 million transitions: **~56 GB RAM** - not feasible on most PCs
+- With float32: ~56 KB per transition → 56 GB for 1M transitions
+- With uint8: ~14 KB per transition → 14 GB for 1M transitions
 
-### Solution: Reduced Buffer + uint8 Storage
+### Solution: uint8 Storage
 
-1. **Reduced buffer size to 100,000** (~5.5 GB with optimizations)
-   - Originally tried 200,000 but required ~11 GB RAM
-   - With 16 GB system RAM, 100k buffer leaves ~10 GB for OS/Python/PyTorch
+**Store states as uint8 instead of float32:**
+```python
+# preprocessing.py
+state = np.array(self.frames, dtype=np.uint8)  # 1 byte per pixel
 
-2. **Store states as uint8 instead of float32:**
-   ```python
-   # preprocessing.py
-   state = np.array(self.frames, dtype=np.uint8)  # 1 byte per pixel
-   
-   # replay_buffer.py - convert to float32 only when sampling
-   np.array(states, dtype=np.float32)
-   ```
-   
-   Memory savings: 4x reduction (uint8 vs float32)
+# replay_buffer.py - convert to float32 only when sampling
+np.array(states, dtype=np.float32)
+```
 
-**Final buffer size:** 100,000 transitions (~5.5 GB)
+Memory savings: 4x reduction (uint8 vs float32)
+
+**For local PC (16 GB RAM):** buffer_size=100,000 (~1.4 GB)
+**For Kaggle (30 GB RAM):** buffer_size=1,000,000 (~14 GB) - full paper size
 
 ---
 
@@ -92,19 +89,19 @@ The paper uses a replay buffer of 1 million transitions. Memory requirement:
 
 ### Paper Values vs Our Values
 
-| Parameter | Paper (2013) | Our Value | Reason |
-|-----------|--------------|-----------|--------|
-| Buffer size | 1,000,000 | 100,000 | Memory constraints (16GB RAM) |
-| Batch size | 32 | 32 | Same as paper |
-| Learning rate | 0.00025 | 0.00025 | Same as paper |
-| Gamma | 0.99 | 0.99 | Same as paper |
-| Epsilon start | 1.0 | 1.0 | Same as paper |
-| Epsilon end | 0.1 | 0.1 | Same as paper |
-| Epsilon decay | 1M frames | 1M frames | Same as paper |
-| Optimizer | RMSprop | RMSprop | Same as paper |
-| Gradient clipping | Not mentioned | max_norm=1 | Stability |
-| Target network | No | No | Following 2013 paper |
-| Training steps | 10M frames | 1M steps | Time constraints |
+| Parameter | Paper (2013) | Local PC | Kaggle | Reason |
+|-----------|--------------|----------|--------|--------|
+| Buffer size | 1,000,000 | 100,000 | 1,000,000 | Memory constraints |
+| Training steps | 10M frames | 1M steps | 2.5M steps | Time/resource constraints |
+| Batch size | 32 | 32 | 32 | Same as paper |
+| Learning rate | 0.00025 | 0.00025 | 0.00025 | Same as paper |
+| Gamma | 0.99 | 0.99 | 0.99 | Same as paper |
+| Epsilon start | 1.0 | 1.0 | 1.0 | Same as paper |
+| Epsilon end | 0.1 | 0.1 | 0.1 | Same as paper |
+| Epsilon decay | 1M frames | 1M frames | 1M frames | Same as paper |
+| Optimizer | RMSprop | RMSprop | RMSprop | Same as paper |
+| Gradient clipping | Not mentioned | max_norm=1 | max_norm=1 | Stability |
+| Target network | No | No | No | Following 2013 paper |
 
 ---
 
@@ -175,14 +172,20 @@ Training starts immediately after batch_size samples (per Algorithm 1 in paper).
 
 ## System Requirements
 
-**Hardware used:**
+### Local PC
 - GPU: NVIDIA RTX 3060 Laptop (6 GB VRAM)
 - RAM: 16 GB
+- Buffer: 100,000 transitions (~1.4 GB)
 - Training time: ~2-3 hours per run (1M steps)
+
+### Kaggle (Recommended for full paper parameters)
+- GPU: Tesla P100 or T4 (16 GB VRAM)
+- RAM: ~30 GB
+- Buffer: 1,000,000 transitions (~14 GB) - full paper size
+- Training time: ~6-8 hours per run (2.5M steps)
 
 **Resource usage:**
 - VRAM: ~500 MB (model is small)
-- RAM: ~5.5 GB for replay buffer + ~2 GB overhead
 - Disk: ~50 MB per checkpoint
 
 ---
