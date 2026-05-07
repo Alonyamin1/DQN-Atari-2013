@@ -320,7 +320,34 @@ Reduced replay buffer from 1,000,000 to **500,000 transitions** (~7 GB RAM) — 
 
 **Trade-off:** 500,000 is half the paper value but 5x what we used locally. This provides a good balance between experience diversity and memory safety.
 
-**All 3 training runs are being done with this buffer size on Kaggle with the `--resume` flag available in case of interruption.**
+### Run 1 Results
+
+| Metric | Value |
+|--------|-------|
+| Final reward | 425.00 (average over 30 evaluation episodes) |
+| Total steps | 2,500,000 |
+| Buffer size | 500,000 |
+
+**Observations:**
+- Reward was noisy throughout training — many 0.00 evaluations mixed with peaks of 700-800
+- Minimum score (163.9) ✅ beaten consistently
+- Good grade score (613.5) ✅ hit several times but not consistently
+- Bonus score (10,596) ❌ not reached — expected since we use 2013 paper (no target network). The 2013 paper itself scored ~1,952 on Q*bert
+
+### Decisions for Run 2
+
+Based on Run 1's reward instability, we adjusted hyperparameters:
+
+| Parameter | Run 1 | Run 2 | Reason |
+|-----------|-------|-------|--------|
+| epsilon_end | 0.1 | 0.05 | More exploitation |
+| epsilon_decay_steps | 1,000,000 | 500,000 | Faster decay, agent exploits sooner |
+| learning_rate | 0.00025 | 0.0001 | More stable updates, less oscillation |
+| buffer_size | 500,000 | 600,000 | More experience diversity |
+
+**Note on buffer size:** Risky increase — crashed at ~810k previously with 1M buffer. 600k is estimated to be within safe range (~8.4 GB).
+
+**Goal:** Reduce the reward instability seen in Run 1 and push average reward closer to 613.5.
 
 ---
 
