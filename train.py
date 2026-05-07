@@ -312,10 +312,11 @@ def train(
 
     env.close()
 
-    # Final evaluation
-    print("\nFinal evaluation...")
-    final_reward = evaluate(agent, eval_frame_stack, n_episodes=10)
-    print(f"Final average reward (10 episodes): {final_reward:.2f}")
+    # Final evaluation with more episodes for stable reporting
+    # Assignment notes: standard practice is 100 episodes, we use 30 for balance
+    print("\nFinal evaluation (30 episodes)...")
+    final_reward = evaluate(agent, eval_frame_stack, n_episodes=30)
+    print(f"Final average reward (30 episodes): {final_reward:.2f}")
 
     # Save results
     np.save(f"{save_dir}/eval_rewards_run{run_id}.npy", eval_rewards)

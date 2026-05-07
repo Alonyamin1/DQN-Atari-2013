@@ -147,12 +147,15 @@ Training starts immediately after batch_size samples (per Algorithm 1 in paper).
 
 ## Evaluation
 
-- **Every 10,000 steps:** Run evaluation episodes
+- **Every 10,000 steps:** Run 5 evaluation episodes (for fast checkpoints during training)
+- **Final reported result:** 30 evaluation episodes (for stable score reporting)
+- **Evaluation policy:** Greedy (epsilon=0) — no exploration during evaluation
+- **Rewards:** Unclipped (real game scores)
 - **Metrics tracked:**
   - Average episode reward (noisy, as paper notes)
   - Average max Q over fixed states (smoother, per paper Section 5.1)
-- **Evaluation policy:** Greedy (epsilon=0)
-- **Rewards:** Unclipped (real game scores)
+
+**Note:** Standard practice in the literature is 100 episodes. We use 30 for the final result as a balance between statistical stability and compute time. This is clearly documented per assignment requirements.
 
 ---
 
@@ -187,6 +190,56 @@ Training starts immediately after batch_size samples (per Algorithm 1 in paper).
 **Resource usage:**
 - VRAM: ~500 MB (model is small)
 - Disk: ~50 MB per checkpoint
+
+---
+
+## Kaggle Training Environment
+
+### Environment Specs (First Training Run)
+- **GPU:** Tesla T4, 15.6 GB VRAM
+- **RAM:** 33.7 GB
+- **CPU:** 4 cores
+- **Disk:** 20.9 GB free
+- **Training:** 3 runs of 2,500,000 steps (= 10M frames with frame skip k=4)
+
+### Memory Crash on Kaggle
+
+**Problem:** When we moved training from our local PC to Kaggle, the notebook crashed with "out of memory" error before training even started.
+
+**Root Cause:** `preprocessing.py` stored frame stacks as float32 (4 bytes per pixel). With a 1,000,000 transition replay buffer storing 2 states per transition (state + next_state), each with 4 frames of 84×84 pixels:
+
+```
+Memory per state = 4 frames × 84 × 84 pixels × 4 bytes = 112,896 bytes
+Memory per transition = 2 states × 112,896 bytes = 225,792 bytes
+Total buffer memory = 1,000,000 × 225,792 = ~225 GB... wait, let me recalculate:
+  - 2 states × 4 frames × 84 × 84 × 4 bytes × 1M = ~56 GB
+```
+
+This exceeded Kaggle's 33.7 GB RAM limit.
+
+**Fix:** Changed `preprocessing.py` to store frames as uint8 (1 byte per pixel) instead of float32:
+```python
+state = np.array(self.frames, dtype=np.uint8)  # Changed from float32
+```
+
+This reduced buffer memory from ~56 GB to ~14 GB. The conversion to float32 still happens at sampling time in the agent, so training is mathematically identical.
+
+### Hyperparameters for First Kaggle Run
+
+| Parameter | Value | Notes |
+|-----------|-------|-------|
+| Learning rate | 0.00025 | Same as paper |
+| Gamma | 0.99 | Same as paper |
+| Buffer size | 1,000,000 | Full paper size |
+| Batch size | 32 | Same as paper |
+| Epsilon start | 1.0 | Same as paper |
+| Epsilon end | 0.1 | Same as paper |
+| Epsilon decay steps | 1,000,000 | Same as paper |
+| Total steps | 2,500,000 | = 10M frames / 4 (frame skip) |
+| Number of runs | 3 | For averaging results |
+| Optimizer | RMSprop | Same as paper |
+| Gradient clipping | max_norm=1 | For stability |
+| Target network | No | Following 2013 paper |
 
 ---
 
