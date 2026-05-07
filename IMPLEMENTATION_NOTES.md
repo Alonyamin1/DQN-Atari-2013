@@ -268,6 +268,62 @@ python train.py --run_id 1 --steps 1000000 --resume
 
 ---
 
+## Kaggle Cloud Training
+
+### Why We Moved to Kaggle
+
+Local PC had insufficient RAM and CPU for training with the paper's full hyperparameters, so we moved to Kaggle's free cloud GPUs.
+
+### Kaggle Environment Specs
+
+| Resource | Value |
+|----------|-------|
+| GPU | Tesla T4, 15.6 GB VRAM |
+| RAM | 30 GB |
+| CPU | 4 cores |
+| Disk | 20.9 GB free |
+| Session limit | 12 hours |
+
+### Problem 1 — OOM Crash (float32 buffer)
+
+**Symptom:** The notebook crashed immediately with "out of memory" before training even started.
+
+**Root Cause:** `preprocessing.py` stored frames as float32 (4 bytes/pixel). With 1M buffer × 2 states × 4 frames × 84×84 pixels:
+```
+Memory = 1,000,000 × 2 × 4 × 84 × 84 × 4 bytes = ~56 GB RAM required
+```
+
+This exceeded Kaggle's 30 GB RAM limit.
+
+**Fix:** Changed `preprocessing.py` to store frames as uint8 (1 byte/pixel), reducing buffer memory to ~14 GB:
+```python
+state = np.array(self.frames, dtype=np.uint8)  # Changed from float32
+```
+
+### Problem 2 — OOM Crash at Step 810,000
+
+**Symptom:** Even with the uint8 fix, training crashed at step 810,000 with another OOM error.
+
+**Impact:** The checkpoint at step 810,000 was corrupted mid-save and could not be loaded. We lost that run entirely.
+
+**Root Cause:** 14 GB buffer + other process memory still pushed close to the 30 GB limit.
+
+### Final Solution
+
+Reduced replay buffer from 1,000,000 to **500,000 transitions** (~7 GB RAM) — well within the 30 GB limit.
+
+| Buffer Size | Memory | Status |
+|-------------|--------|--------|
+| 1,000,000 (paper) | ~14 GB | OOM at 810k steps |
+| 500,000 (final) | ~7 GB | Stable |
+| 100,000 (local) | ~1.4 GB | Too small |
+
+**Trade-off:** 500,000 is half the paper value but 5x what we used locally. This provides a good balance between experience diversity and memory safety.
+
+**All 3 training runs are being done with this buffer size on Kaggle with the `--resume` flag available in case of interruption.**
+
+---
+
 ## Lessons Learned
 
 1. **DQN without target network is unstable** - The 2013 paper's claim of "no divergence" may have been specific to their exact setup or lucky random seeds.
