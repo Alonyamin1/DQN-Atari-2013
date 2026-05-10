@@ -48,7 +48,7 @@ def plot_all_runs(all_rewards, all_steps, save_dir="results"):
 
     plt.xlabel("Training Steps", fontsize=12)
     plt.ylabel("Evaluation Reward", fontsize=12)
-    plt.title("DQN on Robotank - All Training Runs", fontsize=14)
+    plt.title("DQN on Q*bert - All Training Runs", fontsize=14)
     plt.legend(fontsize=11)
     plt.grid(True, alpha=0.3)
     plt.tight_layout()

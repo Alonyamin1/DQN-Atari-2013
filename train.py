@@ -21,6 +21,7 @@ import torch
 import matplotlib.pyplot as plt
 import argparse
 import os
+import time
 from datetime import datetime
 
 # Register ALE environments
@@ -28,6 +29,17 @@ gym.register_envs(ale_py)
 
 from dqn_agent import DQNAgent
 from preprocessing import FrameStack, AtariWrapper
+
+
+def make_logger(log_path):
+    """Return a log() function that writes to both stdout and a file (line-buffered, append mode)."""
+    log_file = open(log_path, "a", buffering=1)
+
+    def log(msg=""):
+        print(msg)
+        log_file.write(str(msg) + "\n")
+
+    return log, log_file
 
 
 def make_env():
@@ -137,7 +149,7 @@ def evaluate(agent, frame_stack, n_episodes=5):
     return np.mean(total_rewards)
 
 
-def save_checkpoint(path, agent, step, eval_rewards, eval_steps, avg_max_q_values, fixed_states):
+def save_checkpoint(path, agent, step, eval_rewards, eval_steps, avg_max_q_values, losses, fixed_states):
     """Save training checkpoint for resuming later."""
     checkpoint = {
         "agent_state": {
@@ -151,6 +163,7 @@ def save_checkpoint(path, agent, step, eval_rewards, eval_steps, avg_max_q_value
             "eval_rewards": eval_rewards,
             "eval_steps": eval_steps,
             "avg_max_q_values": avg_max_q_values,
+            "losses": losses,
         },
         "fixed_states": fixed_states,
     }
@@ -172,6 +185,7 @@ def load_checkpoint(path, agent):
         checkpoint["training_state"]["eval_rewards"],
         checkpoint["training_state"]["eval_steps"],
         checkpoint["training_state"]["avg_max_q_values"],
+        checkpoint["training_state"].get("losses", []),
         checkpoint["fixed_states"],
     )
 
@@ -180,9 +194,17 @@ def train(
     total_steps=2500000,  # Paper: 10M frames / 4 skip = 2.5M steps
     eval_freq=10000,
     eval_episodes=5,
+    final_eval_episodes=100,
     run_id=1,
     save_dir="results",
     resume=False,
+    learning_rate=0.00025,
+    gamma=0.99,
+    buffer_size=1000000,
+    batch_size=32,
+    epsilon_start=1.0,
+    epsilon_end=0.1,
+    epsilon_decay_steps=1000000,
 ):
     """
     Main training function.
@@ -198,16 +220,25 @@ def train(
     # Create save directory
     os.makedirs(save_dir, exist_ok=True)
     checkpoint_path = f"{save_dir}/checkpoint_run{run_id}.pt"
+    log_path = f"{save_dir}/train_run{run_id}.log"
+
+    # Logger writes to both stdout and a file (append, line-buffered)
+    log, log_file = make_logger(log_path)
+    log("=" * 60)
+    log(f"Training run {run_id} started at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    log("=" * 60)
 
     # Set device
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(f"Using device: {device}")
+    log(f"Using device: {device}")
+    if torch.cuda.is_available():
+        log(f"GPU: {torch.cuda.get_device_name(0)}")
 
     # Create environment
     env = make_env()
     n_actions = env.action_space.n
-    print(f"Game: Qbert")
-    print(f"Number of actions: {n_actions}")
+    log("Game: Qbert")
+    log(f"Number of actions: {n_actions}")
 
     # Create frame stack for preprocessing
     frame_stack = FrameStack(k=4)
@@ -216,50 +247,63 @@ def train(
     # Create agent
     # HYPERPARAMETERS - tweaked from paper as assignment requires
     # Paper values in comments for reference
-    agent = DQNAgent(
-        n_actions=n_actions,
-        device=device,
-        learning_rate=0.00025,       # Paper: 0.00025
-        gamma=0.99,                  # Paper: 0.99
-        buffer_size=1000000,         # Paper: 1,000,000
-        batch_size=32,               # Paper: 32
-        epsilon_start=1.0,           # Paper: 1.0
-        epsilon_end=0.1,             # Paper: 0.1
-        epsilon_decay_steps=1000000, # Paper: 1,000,000 frames -> with skip=4: 250k agent steps
+    hyperparams = dict(
+        learning_rate=learning_rate,
+        gamma=gamma,
+        buffer_size=buffer_size,
+        batch_size=batch_size,
+        epsilon_start=epsilon_start,
+        epsilon_end=epsilon_end,
+        epsilon_decay_steps=epsilon_decay_steps,
     )
+    agent = DQNAgent(n_actions=n_actions, device=device, **hyperparams)
     # Note: 2013 paper uses single Q-network (no target network), RMSprop.
+
+    log("Hyperparameters:")
+    for k, v in hyperparams.items():
+        log(f"  {k}: {v}")
+    log(f"  total_steps: {total_steps}")
+    log(f"  eval_freq: {eval_freq}")
+    log(f"  eval_episodes: {eval_episodes}")
+    log(f"  final_eval_episodes: {final_eval_episodes}")
 
     # Check if resuming from checkpoint
     start_step = 1
     if resume and os.path.exists(checkpoint_path):
-        print(f"Resuming from checkpoint: {checkpoint_path}")
-        start_step, eval_rewards, eval_steps, avg_max_q_values, fixed_states = load_checkpoint(
+        log(f"Resuming from checkpoint: {checkpoint_path}")
+        start_step, eval_rewards, eval_steps, avg_max_q_values, losses, fixed_states = load_checkpoint(
             checkpoint_path, agent
         )
         start_step += 1  # Start from next step
-        print(f"Resumed at step {start_step}, epsilon={agent.epsilon:.4f}")
+        log(f"Resumed at step {start_step}, epsilon={agent.epsilon:.4f}")
     else:
         # Collect fixed states for Q-value tracking (paper section 5.1)
-        print("Collecting fixed states for Q-value tracking...")
+        log("Collecting fixed states for Q-value tracking...")
         fixed_states = collect_fixed_states(n_states=1000)
-        print(f"Collected {len(fixed_states)} fixed states")
+        log(f"Collected {len(fixed_states)} fixed states")
 
         # Training tracking
         eval_rewards = []
         eval_steps = []
-        avg_max_q_values = []  # Paper section 5.1: smoother metric than reward
+        avg_max_q_values = []   # Paper section 5.1: smoother metric than reward
+        losses = []              # Mean training loss per eval interval
 
-    episode_rewards = []
+    # Per-interval accumulators (reset after each eval)
+    interval_losses = []
+    interval_episode_rewards = []
+    interval_start_time = time.time()
+
     current_episode_reward = 0
 
     # Initialize episode
     obs, _ = env.reset()
     state = frame_stack.reset(obs)
 
-    print(f"\nStarting training run {run_id}...")
-    print(f"Total steps: {total_steps} (starting from {start_step})")
-    print(f"Evaluation every {eval_freq} steps")
-    print("-" * 50)
+    log("")
+    log(f"Starting training run {run_id}...")
+    log(f"Total steps: {total_steps} (starting from {start_step})")
+    log(f"Evaluation every {eval_freq} steps")
+    log("-" * 50)
 
     for step in range(start_step, total_steps + 1):
         # Select and perform action
@@ -274,9 +318,11 @@ def train(
         agent.store_transition(state, action, reward, next_state, done)
 
         # Train
-        agent.train_step()
+        loss = agent.train_step()
+        if loss is not None:
+            interval_losses.append(loss)
 
-        # Track episode reward
+        # Track episode reward (unclipped game reward)
         current_episode_reward += reward
 
         # Move to next state
@@ -284,7 +330,7 @@ def train(
 
         # Episode ended
         if done:
-            episode_rewards.append(current_episode_reward)
+            interval_episode_rewards.append(current_episode_reward)
             current_episode_reward = 0
             obs, _ = env.reset()
             state = frame_stack.reset(obs)
@@ -297,32 +343,57 @@ def train(
             avg_max_q_values.append(avg_q)
             eval_steps.append(step)
 
-            print(
+            mean_loss = float(np.mean(interval_losses)) if interval_losses else 0.0
+            losses.append(mean_loss)
+
+            elapsed = time.time() - interval_start_time
+            steps_per_sec = eval_freq / elapsed if elapsed > 0 else 0.0
+            n_episodes = len(interval_episode_rewards)
+            mean_train_reward = (
+                float(np.mean(interval_episode_rewards)) if interval_episode_rewards else 0.0
+            )
+
+            log(
                 f"Step {step:>7} | "
                 f"Eval Reward: {avg_reward:>8.2f} | "
                 f"Avg Max Q: {avg_q:>6.2f} | "
+                f"Loss: {mean_loss:>8.4f} | "
                 f"Epsilon: {agent.epsilon:.3f} | "
-                f"Buffer: {len(agent.replay_buffer)}"
+                f"Buffer: {len(agent.replay_buffer):>7} | "
+                f"Train Eps: {n_episodes:>3} | "
+                f"Train R: {mean_train_reward:>7.2f} | "
+                f"{steps_per_sec:>5.1f} steps/s"
             )
+
+            # Persist arrays after each eval so a crash doesn't lose history
+            np.save(f"{save_dir}/eval_rewards_run{run_id}.npy", eval_rewards)
+            np.save(f"{save_dir}/eval_steps_run{run_id}.npy", eval_steps)
+            np.save(f"{save_dir}/avg_max_q_run{run_id}.npy", avg_max_q_values)
+            np.save(f"{save_dir}/losses_run{run_id}.npy", losses)
 
             # Save checkpoint after each evaluation (for resume capability)
             save_checkpoint(
-                checkpoint_path, agent, step, eval_rewards, eval_steps, avg_max_q_values, fixed_states
+                checkpoint_path, agent, step, eval_rewards, eval_steps, avg_max_q_values, losses, fixed_states
             )
+
+            # Reset per-interval accumulators
+            interval_losses = []
+            interval_episode_rewards = []
+            interval_start_time = time.time()
 
     env.close()
 
     # Final evaluation with more episodes for stable reporting
-    # Assignment notes: standard practice is 100 episodes, we use 30 for balance
-    print("\nFinal evaluation (30 episodes)...")
-    final_reward = evaluate(agent, eval_frame_stack, n_episodes=30)
-    print(f"Final average reward (30 episodes): {final_reward:.2f}")
+    # Standard practice in the literature is 100 episodes
+    log("")
+    log(f"Final evaluation ({final_eval_episodes} episodes)...")
+    final_reward = evaluate(agent, eval_frame_stack, n_episodes=final_eval_episodes)
+    log(f"Final average reward ({final_eval_episodes} episodes): {final_reward:.2f}")
+    np.save(f"{save_dir}/final_reward_run{run_id}.npy", np.array([final_reward]))
 
-    # Save results
-    np.save(f"{save_dir}/eval_rewards_run{run_id}.npy", eval_rewards)
-    np.save(f"{save_dir}/eval_steps_run{run_id}.npy", eval_steps)
-    np.save(f"{save_dir}/avg_max_q_run{run_id}.npy", avg_max_q_values)
+    # Save the trained Q-network for later use (weights + optimizer + epsilon + step count)
     agent.save(f"{save_dir}/model_run{run_id}.pt")
+    log(f"Model saved to {save_dir}/model_run{run_id}.pt")
 
     # Plot learning curves (paper section 5.1: both reward and Q-value)
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -345,7 +416,10 @@ def train(
     plt.savefig(f"{save_dir}/learning_curve_run{run_id}.png", dpi=150)
     plt.close()
 
-    print(f"\nResults saved to {save_dir}/")
+    log("")
+    log(f"Results saved to {save_dir}/")
+    log(f"Run {run_id} finished at {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}")
+    log_file.close()
 
     return final_reward
 
@@ -356,15 +430,33 @@ if __name__ == "__main__":
     parser.add_argument("--steps", type=int, default=2500000, help="Total training steps")
     parser.add_argument("--eval_freq", type=int, default=10000, help="Evaluation frequency")
     parser.add_argument("--eval_episodes", type=int, default=5, help="Episodes per evaluation")
+    parser.add_argument("--final_eval_episodes", type=int, default=100, help="Episodes for the final evaluation at end of training")
     parser.add_argument("--resume", action="store_true", help="Resume training from checkpoint")
+    parser.add_argument("--save_dir", type=str, default="results", help="Output directory")
+    parser.add_argument("--learning_rate", type=float, default=0.00025)
+    parser.add_argument("--gamma", type=float, default=0.99)
+    parser.add_argument("--buffer_size", type=int, default=1000000)
+    parser.add_argument("--batch_size", type=int, default=32)
+    parser.add_argument("--epsilon_start", type=float, default=1.0)
+    parser.add_argument("--epsilon_end", type=float, default=0.1)
+    parser.add_argument("--epsilon_decay_steps", type=int, default=1000000)
     args = parser.parse_args()
 
     final_reward = train(
         total_steps=args.steps,
         eval_freq=args.eval_freq,
         eval_episodes=args.eval_episodes,
+        final_eval_episodes=args.final_eval_episodes,
         run_id=args.run_id,
+        save_dir=args.save_dir,
         resume=args.resume,
+        learning_rate=args.learning_rate,
+        gamma=args.gamma,
+        buffer_size=args.buffer_size,
+        batch_size=args.batch_size,
+        epsilon_start=args.epsilon_start,
+        epsilon_end=args.epsilon_end,
+        epsilon_decay_steps=args.epsilon_decay_steps,
     )
 
     print(f"\n{'='*50}")

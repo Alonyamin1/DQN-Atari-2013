@@ -1,0 +1,281 @@
+============================================================
+Training run 2 started at 2026-05-09 11:15:39
+============================================================
+Using device: cuda
+GPU: Tesla T4
+Game: Qbert
+Number of actions: 6
+Hyperparameters:
+  learning_rate: 0.0001
+  gamma: 0.99
+  buffer_size: 500000
+  batch_size: 32
+  epsilon_start: 1.0
+  epsilon_end: 0.1
+  epsilon_decay_steps: 1000000
+  total_steps: 2500000
+  eval_freq: 10000
+  eval_episodes: 5
+Collecting fixed states for Q-value tracking...
+Collected 1000 fixed states
+
+Starting training run 2...
+Total steps: 2500000 (starting from 1)
+Evaluation every 10000 steps
+--------------------------------------------------
+Step   10000 | Eval Reward:     0.00 | Avg Max Q:  10.47 | Loss:   0.5288 | Epsilon: 0.991 | Buffer:   10000 | Train Eps:  30 | Train R:  157.50 | 102.3 steps/s
+Step   20000 | Eval Reward:     0.00 | Avg Max Q:   5.66 | Loss:   0.2156 | Epsilon: 0.982 | Buffer:   20000 | Train Eps:  30 | Train R:  163.33 | 159.3 steps/s
+Step   30000 | Eval Reward:     0.00 | Avg Max Q:   6.69 | Loss:   0.1219 | Epsilon: 0.973 | Buffer:   30000 | Train Eps:  28 | Train R:  216.07 | 145.6 steps/s
+Step   40000 | Eval Reward:     0.00 | Avg Max Q:   3.50 | Loss:   0.0971 | Epsilon: 0.964 | Buffer:   40000 | Train Eps:  32 | Train R:  147.66 | 158.7 steps/s
+Step   50000 | Eval Reward:     0.00 | Avg Max Q:   3.66 | Loss:   0.0667 | Epsilon: 0.955 | Buffer:   50000 | Train Eps:  28 | Train R:  169.64 | 147.8 steps/s
+Step   60000 | Eval Reward:    25.00 | Avg Max Q:   2.62 | Loss:   0.0566 | Epsilon: 0.946 | Buffer:   60000 | Train Eps:  31 | Train R:  133.87 | 157.3 steps/s
+Step   70000 | Eval Reward:    75.00 | Avg Max Q:   5.15 | Loss:   0.0555 | Epsilon: 0.937 | Buffer:   70000 | Train Eps:  30 | Train R:  150.83 | 147.4 steps/s
+Step   80000 | Eval Reward:     0.00 | Avg Max Q:   4.44 | Loss:   0.0484 | Epsilon: 0.928 | Buffer:   80000 | Train Eps:  29 | Train R:  162.07 | 142.9 steps/s
+Step   90000 | Eval Reward:     0.00 | Avg Max Q:   5.02 | Loss:   0.0488 | Epsilon: 0.919 | Buffer:   90000 | Train Eps:  29 | Train R:  207.76 | 144.5 steps/s
+Step  100000 | Eval Reward:   100.00 | Avg Max Q:   2.39 | Loss:   0.0471 | Epsilon: 0.910 | Buffer:  100000 | Train Eps:  30 | Train R:  140.00 | 151.9 steps/s
+Step  110000 | Eval Reward:   125.00 | Avg Max Q:   3.37 | Loss:   0.0534 | Epsilon: 0.901 | Buffer:  110000 | Train Eps:  30 | Train R:  159.17 | 151.1 steps/s
+Step  120000 | Eval Reward:   250.00 | Avg Max Q:   3.34 | Loss:   0.0555 | Epsilon: 0.892 | Buffer:  120000 | Train Eps:  29 | Train R:  165.52 | 147.9 steps/s
+Step  130000 | Eval Reward:   475.00 | Avg Max Q:   4.27 | Loss:   0.0568 | Epsilon: 0.883 | Buffer:  130000 | Train Eps:  30 | Train R:  156.67 | 148.2 steps/s
+Step  140000 | Eval Reward:   275.00 | Avg Max Q:   2.39 | Loss:   0.0659 | Epsilon: 0.874 | Buffer:  140000 | Train Eps:  28 | Train R:  200.00 | 147.5 steps/s
+Step  150000 | Eval Reward:   125.00 | Avg Max Q:   2.71 | Loss:   0.0698 | Epsilon: 0.865 | Buffer:  150000 | Train Eps:  29 | Train R:  189.66 | 146.6 steps/s
+Step  160000 | Eval Reward:     0.00 | Avg Max Q:   4.58 | Loss:   0.0757 | Epsilon: 0.856 | Buffer:  160000 | Train Eps:  30 | Train R:  146.67 | 148.6 steps/s
+Step  170000 | Eval Reward:     0.00 | Avg Max Q:   4.00 | Loss:   0.0750 | Epsilon: 0.847 | Buffer:  170000 | Train Eps:  28 | Train R:  208.93 | 147.7 steps/s
+Step  180000 | Eval Reward:     0.00 | Avg Max Q:   2.96 | Loss:   0.0798 | Epsilon: 0.838 | Buffer:  180000 | Train Eps:  29 | Train R:  205.17 | 146.8 steps/s
+Step  190000 | Eval Reward:   100.00 | Avg Max Q:   2.64 | Loss:   0.0836 | Epsilon: 0.829 | Buffer:  190000 | Train Eps:  29 | Train R:  193.10 | 142.5 steps/s
+Step  200000 | Eval Reward:   150.00 | Avg Max Q:   4.18 | Loss:   0.0829 | Epsilon: 0.820 | Buffer:  200000 | Train Eps:  29 | Train R:  165.52 | 142.3 steps/s
+Step  210000 | Eval Reward:   250.00 | Avg Max Q:   5.71 | Loss:   0.0840 | Epsilon: 0.811 | Buffer:  210000 | Train Eps:  29 | Train R:  181.03 | 143.3 steps/s
+Step  220000 | Eval Reward:   400.00 | Avg Max Q:   5.09 | Loss:   0.0890 | Epsilon: 0.802 | Buffer:  220000 | Train Eps:  28 | Train R:  175.00 | 140.0 steps/s
+Step  230000 | Eval Reward:   150.00 | Avg Max Q:   3.98 | Loss:   0.0921 | Epsilon: 0.793 | Buffer:  230000 | Train Eps:  28 | Train R:  227.68 | 143.6 steps/s
+Step  240000 | Eval Reward:   150.00 | Avg Max Q:   3.29 | Loss:   0.0945 | Epsilon: 0.784 | Buffer:  240000 | Train Eps:  28 | Train R:  195.54 | 141.6 steps/s
+Step  250000 | Eval Reward:   125.00 | Avg Max Q:   4.75 | Loss:   0.0876 | Epsilon: 0.775 | Buffer:  250000 | Train Eps:  30 | Train R:  190.00 | 137.2 steps/s
+Step  260000 | Eval Reward:     0.00 | Avg Max Q:   3.63 | Loss:   0.0968 | Epsilon: 0.766 | Buffer:  260000 | Train Eps:  28 | Train R:  195.54 | 141.0 steps/s
+Step  270000 | Eval Reward:   100.00 | Avg Max Q:   4.33 | Loss:   0.0907 | Epsilon: 0.757 | Buffer:  270000 | Train Eps:  29 | Train R:  187.93 | 139.9 steps/s
+Step  280000 | Eval Reward:     0.00 | Avg Max Q:   4.73 | Loss:   0.0923 | Epsilon: 0.748 | Buffer:  280000 | Train Eps:  28 | Train R:  191.07 | 139.8 steps/s
+Step  290000 | Eval Reward:   100.00 | Avg Max Q:   3.27 | Loss:   0.0909 | Epsilon: 0.739 | Buffer:  290000 | Train Eps:  28 | Train R:  193.75 | 136.9 steps/s
+Step  300000 | Eval Reward:   200.00 | Avg Max Q:   4.70 | Loss:   0.0915 | Epsilon: 0.730 | Buffer:  300000 | Train Eps:  27 | Train R:  228.70 | 136.4 steps/s
+Step  310000 | Eval Reward:   150.00 | Avg Max Q:   4.73 | Loss:   0.0948 | Epsilon: 0.721 | Buffer:  310000 | Train Eps:  27 | Train R:  270.37 | 137.1 steps/s
+Step  320000 | Eval Reward:     0.00 | Avg Max Q:   3.62 | Loss:   0.1029 | Epsilon: 0.712 | Buffer:  320000 | Train Eps:  27 | Train R:  235.19 | 137.0 steps/s
+Step  330000 | Eval Reward:     0.00 | Avg Max Q:   4.90 | Loss:   0.0991 | Epsilon: 0.703 | Buffer:  330000 | Train Eps:  27 | Train R:  210.19 | 135.9 steps/s
+Step  340000 | Eval Reward:   225.00 | Avg Max Q:   5.24 | Loss:   0.1025 | Epsilon: 0.694 | Buffer:  340000 | Train Eps:  28 | Train R:  190.18 | 133.4 steps/s
+Step  350000 | Eval Reward:   275.00 | Avg Max Q:   3.35 | Loss:   0.1013 | Epsilon: 0.685 | Buffer:  350000 | Train Eps:  28 | Train R:  176.79 | 131.8 steps/s
+Step  360000 | Eval Reward:     0.00 | Avg Max Q:   3.25 | Loss:   0.1023 | Epsilon: 0.676 | Buffer:  360000 | Train Eps:  28 | Train R:  241.96 | 133.3 steps/s
+Step  370000 | Eval Reward:   500.00 | Avg Max Q:   5.97 | Loss:   0.1000 | Epsilon: 0.667 | Buffer:  370000 | Train Eps:  28 | Train R:  233.93 | 127.5 steps/s
+Step  380000 | Eval Reward:     0.00 | Avg Max Q:   5.10 | Loss:   0.1025 | Epsilon: 0.658 | Buffer:  380000 | Train Eps:  28 | Train R:  187.50 | 130.1 steps/s
+Step  390000 | Eval Reward:     0.00 | Avg Max Q:   3.43 | Loss:   0.0998 | Epsilon: 0.649 | Buffer:  390000 | Train Eps:  30 | Train R:  182.50 | 129.4 steps/s
+Step  400000 | Eval Reward:   275.00 | Avg Max Q:   3.63 | Loss:   0.1008 | Epsilon: 0.640 | Buffer:  400000 | Train Eps:  28 | Train R:  196.43 | 125.2 steps/s
+Step  410000 | Eval Reward:   250.00 | Avg Max Q:   4.60 | Loss:   0.0970 | Epsilon: 0.631 | Buffer:  410000 | Train Eps:  27 | Train R:  212.96 | 125.7 steps/s
+Step  420000 | Eval Reward:   275.00 | Avg Max Q:   3.76 | Loss:   0.0968 | Epsilon: 0.622 | Buffer:  420000 | Train Eps:  28 | Train R:  214.29 | 125.1 steps/s
+Step  430000 | Eval Reward:   525.00 | Avg Max Q:   4.77 | Loss:   0.1000 | Epsilon: 0.613 | Buffer:  430000 | Train Eps:  28 | Train R:  217.86 | 124.2 steps/s
+Step  440000 | Eval Reward:   450.00 | Avg Max Q:   3.49 | Loss:   0.1005 | Epsilon: 0.604 | Buffer:  440000 | Train Eps:  27 | Train R:  249.07 | 121.6 steps/s
+Step  450000 | Eval Reward:   125.00 | Avg Max Q:   5.00 | Loss:   0.1052 | Epsilon: 0.595 | Buffer:  450000 | Train Eps:  27 | Train R:  237.04 | 121.4 steps/s
+Step  460000 | Eval Reward:   150.00 | Avg Max Q:   5.67 | Loss:   0.0992 | Epsilon: 0.586 | Buffer:  460000 | Train Eps:  26 | Train R:  253.85 | 122.7 steps/s
+Step  470000 | Eval Reward:   225.00 | Avg Max Q:   3.14 | Loss:   0.1049 | Epsilon: 0.577 | Buffer:  470000 | Train Eps:  28 | Train R:  202.68 | 120.7 steps/s
+Step  480000 | Eval Reward:     0.00 | Avg Max Q:   4.69 | Loss:   0.1051 | Epsilon: 0.568 | Buffer:  480000 | Train Eps:  29 | Train R:  214.66 | 121.3 steps/s
+Step  490000 | Eval Reward:   700.00 | Avg Max Q:   3.27 | Loss:   0.1011 | Epsilon: 0.559 | Buffer:  490000 | Train Eps:  26 | Train R:  280.77 | 118.8 steps/s
+Step  500000 | Eval Reward:   275.00 | Avg Max Q:   3.92 | Loss:   0.1055 | Epsilon: 0.550 | Buffer:  500000 | Train Eps:  25 | Train R:  310.00 | 119.1 steps/s
+Step  510000 | Eval Reward:   275.00 | Avg Max Q:   3.96 | Loss:   0.1073 | Epsilon: 0.541 | Buffer:  500000 | Train Eps:  25 | Train R:  222.00 | 116.8 steps/s
+Step  520000 | Eval Reward:     0.00 | Avg Max Q:   5.31 | Loss:   0.1039 | Epsilon: 0.532 | Buffer:  500000 | Train Eps:  28 | Train R:  227.68 | 119.9 steps/s
+Step  530000 | Eval Reward:   550.00 | Avg Max Q:   4.09 | Loss:   0.1081 | Epsilon: 0.523 | Buffer:  500000 | Train Eps:  26 | Train R:  289.42 | 116.8 steps/s
+Step  540000 | Eval Reward:   525.00 | Avg Max Q:   4.55 | Loss:   0.1006 | Epsilon: 0.514 | Buffer:  500000 | Train Eps:  25 | Train R:  294.00 | 118.3 steps/s
+Step  550000 | Eval Reward:     0.00 | Avg Max Q:   4.28 | Loss:   0.1013 | Epsilon: 0.505 | Buffer:  500000 | Train Eps:  25 | Train R:  252.00 | 120.2 steps/s
+Step  560000 | Eval Reward:     0.00 | Avg Max Q:   2.19 | Loss:   0.0999 | Epsilon: 0.496 | Buffer:  500000 | Train Eps:  26 | Train R:  214.42 | 119.7 steps/s
+Step  570000 | Eval Reward:   300.00 | Avg Max Q:   3.26 | Loss:   0.1007 | Epsilon: 0.487 | Buffer:  500000 | Train Eps:  26 | Train R:  243.27 | 118.2 steps/s
+Step  580000 | Eval Reward:   175.00 | Avg Max Q:   4.76 | Loss:   0.1017 | Epsilon: 0.478 | Buffer:  500000 | Train Eps:  26 | Train R:  262.50 | 119.5 steps/s
+Step  590000 | Eval Reward:   925.00 | Avg Max Q:   3.70 | Loss:   0.1018 | Epsilon: 0.469 | Buffer:  500000 | Train Eps:  26 | Train R:  311.54 | 116.3 steps/s
+Step  600000 | Eval Reward:   225.00 | Avg Max Q:   4.81 | Loss:   0.1001 | Epsilon: 0.460 | Buffer:  500000 | Train Eps:  25 | Train R:  281.00 | 119.2 steps/s
+Step  610000 | Eval Reward:   250.00 | Avg Max Q:   4.07 | Loss:   0.0989 | Epsilon: 0.451 | Buffer:  500000 | Train Eps:  25 | Train R:  281.00 | 117.5 steps/s
+Step  620000 | Eval Reward:     0.00 | Avg Max Q:   4.98 | Loss:   0.0987 | Epsilon: 0.442 | Buffer:  500000 | Train Eps:  23 | Train R:  350.00 | 120.1 steps/s
+Step  630000 | Eval Reward:   550.00 | Avg Max Q:   4.83 | Loss:   0.0984 | Epsilon: 0.433 | Buffer:  500000 | Train Eps:  23 | Train R:  315.22 | 115.6 steps/s
+Step  640000 | Eval Reward:     0.00 | Avg Max Q:   5.29 | Loss:   0.0975 | Epsilon: 0.424 | Buffer:  500000 | Train Eps:  25 | Train R:  280.00 | 120.7 steps/s
+Step  650000 | Eval Reward:   525.00 | Avg Max Q:   3.63 | Loss:   0.1021 | Epsilon: 0.415 | Buffer:  500000 | Train Eps:  23 | Train R:  331.52 | 118.5 steps/s
+Step  660000 | Eval Reward:   525.00 | Avg Max Q:   4.09 | Loss:   0.1031 | Epsilon: 0.406 | Buffer:  500000 | Train Eps:  25 | Train R:  258.00 | 116.1 steps/s
+Step  670000 | Eval Reward:   525.00 | Avg Max Q:   4.59 | Loss:   0.1018 | Epsilon: 0.397 | Buffer:  500000 | Train Eps:  24 | Train R:  363.54 | 118.1 steps/s
+Step  680000 | Eval Reward:   350.00 | Avg Max Q:   5.07 | Loss:   0.1014 | Epsilon: 0.388 | Buffer:  500000 | Train Eps:  24 | Train R:  336.46 | 118.9 steps/s
+Step  690000 | Eval Reward:   275.00 | Avg Max Q:   4.66 | Loss:   0.0993 | Epsilon: 0.379 | Buffer:  500000 | Train Eps:  22 | Train R:  365.91 | 116.9 steps/s
+Step  700000 | Eval Reward:   275.00 | Avg Max Q:   4.54 | Loss:   0.1054 | Epsilon: 0.370 | Buffer:  500000 | Train Eps:  24 | Train R:  383.33 | 115.5 steps/s
+Step  710000 | Eval Reward:     0.00 | Avg Max Q:   4.74 | Loss:   0.1017 | Epsilon: 0.361 | Buffer:  500000 | Train Eps:  27 | Train R:  223.15 | 119.3 steps/s
+Step  720000 | Eval Reward:   575.00 | Avg Max Q:   4.04 | Loss:   0.0969 | Epsilon: 0.352 | Buffer:  500000 | Train Eps:  24 | Train R:  346.88 | 113.4 steps/s
+Step  730000 | Eval Reward:   325.00 | Avg Max Q:   5.26 | Loss:   0.1015 | Epsilon: 0.343 | Buffer:  500000 | Train Eps:  22 | Train R:  350.00 | 117.6 steps/s
+Step  740000 | Eval Reward:   700.00 | Avg Max Q:   4.89 | Loss:   0.0996 | Epsilon: 0.334 | Buffer:  500000 | Train Eps:  25 | Train R:  285.00 | 115.3 steps/s
+Step  750000 | Eval Reward:    75.00 | Avg Max Q:   5.37 | Loss:   0.1026 | Epsilon: 0.325 | Buffer:  500000 | Train Eps:  21 | Train R:  394.05 | 116.7 steps/s
+Step  760000 | Eval Reward:   450.00 | Avg Max Q:   4.59 | Loss:   0.1005 | Epsilon: 0.316 | Buffer:  500000 | Train Eps:  25 | Train R:  336.00 | 114.6 steps/s
+Step  770000 | Eval Reward:   650.00 | Avg Max Q:   4.08 | Loss:   0.0994 | Epsilon: 0.307 | Buffer:  500000 | Train Eps:  22 | Train R:  425.00 | 113.2 steps/s
+Step  780000 | Eval Reward:   650.00 | Avg Max Q:   4.12 | Loss:   0.0994 | Epsilon: 0.298 | Buffer:  500000 | Train Eps:  22 | Train R:  377.27 | 113.6 steps/s
+Step  790000 | Eval Reward:   675.00 | Avg Max Q:   4.58 | Loss:   0.0916 | Epsilon: 0.289 | Buffer:  500000 | Train Eps:  20 | Train R:  388.75 | 111.7 steps/s
+Step  800000 | Eval Reward:   150.00 | Avg Max Q:   5.30 | Loss:   0.0922 | Epsilon: 0.280 | Buffer:  500000 | Train Eps:  23 | Train R:  327.17 | 114.6 steps/s
+Step  810000 | Eval Reward:   625.00 | Avg Max Q:   4.69 | Loss:   0.0932 | Epsilon: 0.271 | Buffer:  500000 | Train Eps:  21 | Train R:  455.95 | 114.3 steps/s
+Step  820000 | Eval Reward:   325.00 | Avg Max Q:   5.79 | Loss:   0.0958 | Epsilon: 0.262 | Buffer:  500000 | Train Eps:  22 | Train R:  378.41 | 113.2 steps/s
+Step  830000 | Eval Reward:   600.00 | Avg Max Q:   3.92 | Loss:   0.0932 | Epsilon: 0.253 | Buffer:  500000 | Train Eps:  21 | Train R:  419.05 | 114.9 steps/s
+Step  840000 | Eval Reward:   300.00 | Avg Max Q:   5.04 | Loss:   0.0923 | Epsilon: 0.244 | Buffer:  500000 | Train Eps:  21 | Train R:  464.29 | 115.3 steps/s
+Step  850000 | Eval Reward:    50.00 | Avg Max Q:   5.35 | Loss:   0.0935 | Epsilon: 0.235 | Buffer:  500000 | Train Eps:  22 | Train R:  367.05 | 114.2 steps/s
+Step  860000 | Eval Reward:   200.00 | Avg Max Q:   4.81 | Loss:   0.0948 | Epsilon: 0.226 | Buffer:  500000 | Train Eps:  22 | Train R:  430.68 | 115.3 steps/s
+Step  870000 | Eval Reward:   750.00 | Avg Max Q:   4.47 | Loss:   0.0924 | Epsilon: 0.217 | Buffer:  500000 | Train Eps:  22 | Train R:  387.50 | 109.6 steps/s
+Step  880000 | Eval Reward:   375.00 | Avg Max Q:   3.73 | Loss:   0.0898 | Epsilon: 0.208 | Buffer:  500000 | Train Eps:  22 | Train R:  373.86 | 113.5 steps/s
+Step  890000 | Eval Reward:     0.00 | Avg Max Q:   4.88 | Loss:   0.0889 | Epsilon: 0.199 | Buffer:  500000 | Train Eps:  20 | Train R:  453.75 | 115.4 steps/s
+Step  900000 | Eval Reward:   450.00 | Avg Max Q:   4.54 | Loss:   0.0915 | Epsilon: 0.190 | Buffer:  500000 | Train Eps:  19 | Train R:  446.05 | 113.2 steps/s
+Step  910000 | Eval Reward:   725.00 | Avg Max Q:   4.04 | Loss:   0.0904 | Epsilon: 0.181 | Buffer:  500000 | Train Eps:  22 | Train R:  431.82 | 112.3 steps/s
+Step  920000 | Eval Reward:     0.00 | Avg Max Q:   4.41 | Loss:   0.0881 | Epsilon: 0.172 | Buffer:  500000 | Train Eps:  20 | Train R:  393.75 | 115.7 steps/s
+Step  930000 | Eval Reward:   375.00 | Avg Max Q:   3.92 | Loss:   0.0908 | Epsilon: 0.163 | Buffer:  500000 | Train Eps:  21 | Train R:  545.24 | 113.0 steps/s
+Step  940000 | Eval Reward:   500.00 | Avg Max Q:   5.62 | Loss:   0.0915 | Epsilon: 0.154 | Buffer:  500000 | Train Eps:  21 | Train R:  395.24 | 111.6 steps/s
+Step  950000 | Eval Reward:   325.00 | Avg Max Q:   6.13 | Loss:   0.0927 | Epsilon: 0.145 | Buffer:  500000 | Train Eps:  19 | Train R:  569.74 | 114.1 steps/s
+Step  960000 | Eval Reward:   425.00 | Avg Max Q:   4.62 | Loss:   0.0940 | Epsilon: 0.136 | Buffer:  500000 | Train Eps:  19 | Train R:  496.05 | 113.6 steps/s
+Step  970000 | Eval Reward:   575.00 | Avg Max Q:   3.52 | Loss:   0.0893 | Epsilon: 0.127 | Buffer:  500000 | Train Eps:  18 | Train R:  450.00 | 113.4 steps/s
+Step  980000 | Eval Reward:   525.00 | Avg Max Q:   4.63 | Loss:   0.0898 | Epsilon: 0.118 | Buffer:  500000 | Train Eps:  19 | Train R:  503.95 | 115.3 steps/s
+Step  990000 | Eval Reward:   325.00 | Avg Max Q:   4.57 | Loss:   0.0899 | Epsilon: 0.109 | Buffer:  500000 | Train Eps:  17 | Train R:  523.53 | 115.0 steps/s
+Step 1000000 | Eval Reward:   125.00 | Avg Max Q:   6.45 | Loss:   0.0884 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  526.47 | 113.8 steps/s
+Step 1010000 | Eval Reward:   425.00 | Avg Max Q:   4.55 | Loss:   0.0881 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  15 | Train R:  573.33 | 113.0 steps/s
+Step 1020000 | Eval Reward:   800.00 | Avg Max Q:   5.22 | Loss:   0.0859 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  533.82 | 113.1 steps/s
+Step 1030000 | Eval Reward:   725.00 | Avg Max Q:   5.03 | Loss:   0.0895 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  588.89 | 109.5 steps/s
+Step 1040000 | Eval Reward:   550.00 | Avg Max Q:   6.04 | Loss:   0.0860 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  525.00 | 110.6 steps/s
+Step 1050000 | Eval Reward:   400.00 | Avg Max Q:   4.57 | Loss:   0.0845 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  486.84 | 112.9 steps/s
+Step 1060000 | Eval Reward:   525.00 | Avg Max Q:   5.02 | Loss:   0.0832 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  477.78 | 113.8 steps/s
+Step 1070000 | Eval Reward:   500.00 | Avg Max Q:   6.58 | Loss:   0.0872 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  461.76 | 110.5 steps/s
+Step 1080000 | Eval Reward:   750.00 | Avg Max Q:   5.40 | Loss:   0.0862 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  497.22 | 108.8 steps/s
+Step 1090000 | Eval Reward:   650.00 | Avg Max Q:   5.45 | Loss:   0.0871 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  15 | Train R:  553.33 | 111.7 steps/s
+Step 1100000 | Eval Reward:   325.00 | Avg Max Q:   5.29 | Loss:   0.0882 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  576.47 | 111.8 steps/s
+Step 1110000 | Eval Reward:   700.00 | Avg Max Q:   4.93 | Loss:   0.0806 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  14 | Train R:  585.71 | 112.1 steps/s
+Step 1120000 | Eval Reward:   400.00 | Avg Max Q:   5.34 | Loss:   0.0768 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  494.12 | 109.3 steps/s
+Step 1130000 | Eval Reward:   575.00 | Avg Max Q:   4.40 | Loss:   0.0786 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  506.58 | 110.8 steps/s
+Step 1140000 | Eval Reward:   450.00 | Avg Max Q:   5.02 | Loss:   0.0853 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  507.81 | 108.3 steps/s
+Step 1150000 | Eval Reward:   350.00 | Avg Max Q:   6.27 | Loss:   0.0760 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  538.16 | 109.5 steps/s
+Step 1160000 | Eval Reward:   725.00 | Avg Max Q:   5.09 | Loss:   0.0776 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  480.56 | 111.6 steps/s
+Step 1170000 | Eval Reward:   975.00 | Avg Max Q:   5.89 | Loss:   0.0810 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  569.12 | 109.8 steps/s
+Step 1180000 | Eval Reward:   575.00 | Avg Max Q:   5.83 | Loss:   0.0742 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  550.00 | 111.1 steps/s
+Step 1190000 | Eval Reward:   425.00 | Avg Max Q:   4.68 | Loss:   0.0766 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  501.32 | 113.9 steps/s
+Step 1200000 | Eval Reward:   425.00 | Avg Max Q:   5.33 | Loss:   0.0771 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  15 | Train R:  538.33 | 111.8 steps/s
+Step 1210000 | Eval Reward:   750.00 | Avg Max Q:   6.83 | Loss:   0.0734 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  514.71 | 110.4 steps/s
+Step 1220000 | Eval Reward:   425.00 | Avg Max Q:   6.65 | Loss:   0.0706 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  497.06 | 111.6 steps/s
+Step 1230000 | Eval Reward:   475.00 | Avg Max Q:   4.92 | Loss:   0.0696 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  15 | Train R:  561.67 | 113.6 steps/s
+Step 1240000 | Eval Reward:   350.00 | Avg Max Q:   8.60 | Loss:   0.0693 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  541.67 | 116.0 steps/s
+Step 1250000 | Eval Reward:   500.00 | Avg Max Q:   5.50 | Loss:   0.0665 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  568.42 | 114.3 steps/s
+Step 1260000 | Eval Reward:   450.00 | Avg Max Q:   4.63 | Loss:   0.0686 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  550.00 | 112.2 steps/s
+Step 1270000 | Eval Reward:   575.00 | Avg Max Q:   5.92 | Loss:   0.0658 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  513.16 | 109.6 steps/s
+Step 1280000 | Eval Reward:   400.00 | Avg Max Q:   6.67 | Loss:   0.0644 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  490.79 | 110.0 steps/s
+Step 1290000 | Eval Reward:   350.00 | Avg Max Q:   7.45 | Loss:   0.0638 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  486.11 | 115.2 steps/s
+Step 1300000 | Eval Reward:   475.00 | Avg Max Q:   7.61 | Loss:   0.0640 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  530.88 | 111.1 steps/s
+Step 1310000 | Eval Reward:   425.00 | Avg Max Q:   6.40 | Loss:   0.0612 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  583.82 | 112.5 steps/s
+Step 1320000 | Eval Reward:   500.00 | Avg Max Q:   6.50 | Loss:   0.0634 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  513.16 | 113.4 steps/s
+Step 1330000 | Eval Reward:   475.00 | Avg Max Q:   5.46 | Loss:   0.0574 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  548.53 | 113.9 steps/s
+Step 1340000 | Eval Reward:   450.00 | Avg Max Q:   5.33 | Loss:   0.0567 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  548.61 | 109.9 steps/s
+Step 1350000 | Eval Reward:   450.00 | Avg Max Q:   7.22 | Loss:   0.0527 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  580.88 | 112.6 steps/s
+Step 1360000 | Eval Reward:   525.00 | Avg Max Q:   5.87 | Loss:   0.0544 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  602.63 | 113.2 steps/s
+Step 1370000 | Eval Reward:   425.00 | Avg Max Q:   6.77 | Loss:   0.0489 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  475.00 | 112.1 steps/s
+Step 1380000 | Eval Reward:   525.00 | Avg Max Q:   7.29 | Loss:   0.0503 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  814.06 | 112.2 steps/s
+Step 1390000 | Eval Reward:   525.00 | Avg Max Q:   4.69 | Loss:   0.0473 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  561.11 | 111.6 steps/s
+Step 1400000 | Eval Reward:   450.00 | Avg Max Q:   6.37 | Loss:   0.0461 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  481.58 | 111.1 steps/s
+Step 1410000 | Eval Reward:   450.00 | Avg Max Q:   9.26 | Loss:   0.0441 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  455.26 | 112.1 steps/s
+Step 1420000 | Eval Reward:   350.00 | Avg Max Q:   6.18 | Loss:   0.0448 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  20 | Train R:  578.75 | 109.0 steps/s
+Step 1430000 | Eval Reward:   425.00 | Avg Max Q:   5.85 | Loss:   0.0404 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  558.82 | 111.5 steps/s
+Step 1440000 | Eval Reward:   550.00 | Avg Max Q:   6.29 | Loss:   0.0424 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  709.38 | 110.7 steps/s
+Step 1450000 | Eval Reward:  1075.00 | Avg Max Q:   7.26 | Loss:   0.0384 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  561.11 | 109.9 steps/s
+Step 1460000 | Eval Reward:   825.00 | Avg Max Q:   6.87 | Loss:   0.0384 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  21 | Train R:  548.81 | 113.3 steps/s
+Step 1470000 | Eval Reward:   500.00 | Avg Max Q:   7.08 | Loss:   0.0377 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  552.78 | 113.5 steps/s
+Step 1480000 | Eval Reward:   575.00 | Avg Max Q:   6.35 | Loss:   0.0368 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  20 | Train R:  540.00 | 113.0 steps/s
+Step 1490000 | Eval Reward:   975.00 | Avg Max Q:   6.75 | Loss:   0.0359 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  561.76 | 109.8 steps/s
+Step 1500000 | Eval Reward:   500.00 | Avg Max Q:   6.84 | Loss:   0.0368 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  802.94 | 111.8 steps/s
+Step 1510000 | Eval Reward:   550.00 | Avg Max Q:   9.35 | Loss:   0.0358 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  654.69 | 111.1 steps/s
+Step 1520000 | Eval Reward:   550.00 | Avg Max Q:   6.92 | Loss:   0.0357 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  570.59 | 107.0 steps/s
+Step 1530000 | Eval Reward:   575.00 | Avg Max Q:   6.35 | Loss:   0.0354 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  625.00 | 109.8 steps/s
+Step 1540000 | Eval Reward:  1050.00 | Avg Max Q:   6.14 | Loss:   0.0352 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  548.61 | 109.2 steps/s
+Step 1550000 | Eval Reward:   525.00 | Avg Max Q:   7.87 | Loss:   0.0353 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  552.78 | 109.3 steps/s
+Step 1560000 | Eval Reward:   500.00 | Avg Max Q:   6.07 | Loss:   0.0351 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  576.47 | 113.5 steps/s
+Step 1570000 | Eval Reward:   500.00 | Avg Max Q:   6.92 | Loss:   0.0352 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  613.89 | 110.8 steps/s
+Step 1580000 | Eval Reward:   475.00 | Avg Max Q:   6.69 | Loss:   0.0349 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  557.35 | 109.9 steps/s
+Step 1590000 | Eval Reward:   525.00 | Avg Max Q:   6.58 | Loss:   0.0349 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  560.94 | 110.4 steps/s
+Step 1600000 | Eval Reward:   550.00 | Avg Max Q:   7.14 | Loss:   0.0348 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  15 | Train R:  628.33 | 115.2 steps/s
+Step 1610000 | Eval Reward:   550.00 | Avg Max Q:   6.84 | Loss:   0.0349 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  726.47 | 114.9 steps/s
+Step 1620000 | Eval Reward:   525.00 | Avg Max Q:   5.48 | Loss:   0.0344 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  664.06 | 112.0 steps/s
+Step 1630000 | Eval Reward:   475.00 | Avg Max Q:   7.57 | Loss:   0.0365 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  634.38 | 114.9 steps/s
+Step 1640000 | Eval Reward:   275.00 | Avg Max Q:   7.82 | Loss:   0.0343 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  15 | Train R:  555.00 | 113.0 steps/s
+Step 1650000 | Eval Reward:   475.00 | Avg Max Q:   7.48 | Loss:   0.0328 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  640.28 | 114.1 steps/s
+Step 1660000 | Eval Reward:   500.00 | Avg Max Q:   6.49 | Loss:   0.0321 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  584.38 | 114.2 steps/s
+Step 1670000 | Eval Reward:   500.00 | Avg Max Q:   7.01 | Loss:   0.0323 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  539.47 | 113.0 steps/s
+Step 1680000 | Eval Reward:   550.00 | Avg Max Q:   7.55 | Loss:   0.0319 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  550.00 | 111.5 steps/s
+Step 1690000 | Eval Reward:   575.00 | Avg Max Q:   5.65 | Loss:   0.0342 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  15 | Train R:  623.33 | 112.4 steps/s
+Step 1700000 | Eval Reward:   550.00 | Avg Max Q:   6.43 | Loss:   0.0322 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  617.19 | 111.6 steps/s
+Step 1710000 | Eval Reward:   600.00 | Avg Max Q:   6.16 | Loss:   0.0321 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  650.00 | 108.1 steps/s
+Step 1720000 | Eval Reward:   550.00 | Avg Max Q:   7.48 | Loss:   0.0326 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  605.88 | 114.7 steps/s
+Step 1730000 | Eval Reward:   600.00 | Avg Max Q:   5.85 | Loss:   0.0319 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  573.68 | 113.6 steps/s
+Step 1740000 | Eval Reward:   700.00 | Avg Max Q:   6.92 | Loss:   0.0331 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  714.71 | 109.9 steps/s
+Step 1750000 | Eval Reward:   575.00 | Avg Max Q:   6.58 | Loss:   0.0299 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  557.89 | 112.9 steps/s
+Step 1760000 | Eval Reward:   550.00 | Avg Max Q:   7.18 | Loss:   0.0314 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  595.59 | 113.1 steps/s
+Step 1770000 | Eval Reward:   575.00 | Avg Max Q:   6.72 | Loss:   0.0308 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  589.71 | 111.7 steps/s
+Step 1780000 | Eval Reward:   525.00 | Avg Max Q:   7.28 | Loss:   0.0307 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  654.69 | 113.3 steps/s
+Step 1790000 | Eval Reward:   600.00 | Avg Max Q:   6.78 | Loss:   0.0306 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  548.53 | 110.2 steps/s
+Step 1800000 | Eval Reward:   700.00 | Avg Max Q:   7.02 | Loss:   0.0322 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  573.53 | 109.6 steps/s
+Step 1810000 | Eval Reward:   600.00 | Avg Max Q:   7.83 | Loss:   0.0297 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  647.06 | 113.8 steps/s
+Step 1820000 | Eval Reward:   575.00 | Avg Max Q:   7.22 | Loss:   0.0301 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  548.61 | 112.3 steps/s
+Step 1830000 | Eval Reward:   600.00 | Avg Max Q:   7.12 | Loss:   0.0296 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  778.12 | 112.4 steps/s
+Step 1840000 | Eval Reward:   575.00 | Avg Max Q:   6.24 | Loss:   0.0311 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  671.88 | 109.5 steps/s
+Step 1850000 | Eval Reward:   575.00 | Avg Max Q:   7.15 | Loss:   0.0331 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  579.41 | 112.4 steps/s
+Step 1860000 | Eval Reward:   575.00 | Avg Max Q:   6.56 | Loss:   0.0332 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  566.18 | 112.4 steps/s
+Step 1870000 | Eval Reward:  1050.00 | Avg Max Q:   6.59 | Loss:   0.0309 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R: 1134.72 | 111.1 steps/s
+Step 1880000 | Eval Reward:   600.00 | Avg Max Q:   6.91 | Loss:   0.0310 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  802.78 | 107.6 steps/s
+Step 1890000 | Eval Reward:   600.00 | Avg Max Q:   6.94 | Loss:   0.0310 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  578.12 | 110.1 steps/s
+Step 1900000 | Eval Reward:  4225.00 | Avg Max Q:   7.19 | Loss:   0.0325 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R: 1026.56 | 110.0 steps/s
+Step 1910000 | Eval Reward:   575.00 | Avg Max Q:   7.90 | Loss:   0.0340 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  14 | Train R:  580.36 | 110.1 steps/s
+Step 1920000 | Eval Reward:   575.00 | Avg Max Q:   6.48 | Loss:   0.0333 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  591.18 | 111.7 steps/s
+Step 1930000 | Eval Reward:   600.00 | Avg Max Q:   6.46 | Loss:   0.0298 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  621.88 | 110.1 steps/s
+Step 1940000 | Eval Reward:   475.00 | Avg Max Q:   6.49 | Loss:   0.0330 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  600.00 | 114.9 steps/s
+Step 1950000 | Eval Reward:   550.00 | Avg Max Q:   6.69 | Loss:   0.0308 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  15 | Train R: 1086.67 | 112.0 steps/s
+Step 1960000 | Eval Reward:   600.00 | Avg Max Q:   7.16 | Loss:   0.0335 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  650.00 | 113.2 steps/s
+Step 1970000 | Eval Reward:   600.00 | Avg Max Q:   7.15 | Loss:   0.0310 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  796.88 | 111.2 steps/s
+Step 1980000 | Eval Reward:   575.00 | Avg Max Q:   6.78 | Loss:   0.0316 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  943.06 | 110.0 steps/s
+Step 1990000 | Eval Reward:   575.00 | Avg Max Q:   7.62 | Loss:   0.0379 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  755.88 | 112.1 steps/s
+Step 2000000 | Eval Reward:  3725.00 | Avg Max Q:   6.44 | Loss:   0.0348 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R: 1272.22 | 113.8 steps/s
+Step 2010000 | Eval Reward:   600.00 | Avg Max Q:   6.31 | Loss:   0.0372 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  597.06 | 111.7 steps/s
+Step 2020000 | Eval Reward:   475.00 | Avg Max Q:   6.17 | Loss:   0.0435 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R: 1204.69 | 115.5 steps/s
+Step 2030000 | Eval Reward:   800.00 | Avg Max Q:   7.14 | Loss:   0.0469 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R: 1435.94 | 114.2 steps/s
+Step 2040000 | Eval Reward:   575.00 | Avg Max Q:   7.62 | Loss:   0.0465 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  579.17 | 111.5 steps/s
+Step 2050000 | Eval Reward:   600.00 | Avg Max Q:   6.77 | Loss:   0.0474 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  568.42 | 110.7 steps/s
+Step 2060000 | Eval Reward:   600.00 | Avg Max Q:   7.57 | Loss:   0.0607 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  987.50 | 111.3 steps/s
+Step 2070000 | Eval Reward:   600.00 | Avg Max Q:   8.60 | Loss:   0.0535 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  970.59 | 111.4 steps/s
+Step 2080000 | Eval Reward:   575.00 | Avg Max Q:   8.75 | Loss:   0.0837 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R: 1153.12 | 106.6 steps/s
+Step 2090000 | Eval Reward:   575.00 | Avg Max Q:   6.61 | Loss:   0.0884 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  617.65 | 109.7 steps/s
+Step 2100000 | Eval Reward:   250.00 | Avg Max Q:   6.86 | Loss:   0.0908 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  795.83 | 113.3 steps/s
+Step 2110000 | Eval Reward:   450.00 | Avg Max Q:   7.60 | Loss:   0.0668 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R: 1173.44 | 114.2 steps/s
+Step 2120000 | Eval Reward:   575.00 | Avg Max Q:   6.94 | Loss:   0.0995 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R:  598.44 | 110.3 steps/s
+Step 2130000 | Eval Reward:   525.00 | Avg Max Q:   7.90 | Loss:   0.0896 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  590.28 | 111.7 steps/s
+Step 2140000 | Eval Reward:   600.00 | Avg Max Q:   7.44 | Loss:   0.1129 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R: 1301.47 | 111.2 steps/s
+Step 2150000 | Eval Reward:   350.00 | Avg Max Q:   8.20 | Loss:   0.1186 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  772.06 | 113.9 steps/s
+Step 2160000 | Eval Reward:   575.00 | Avg Max Q:   8.97 | Loss:   0.1273 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  805.88 | 114.3 steps/s
+Step 2170000 | Eval Reward:   575.00 | Avg Max Q:   7.54 | Loss:   0.1118 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  801.47 | 111.3 steps/s
+Step 2180000 | Eval Reward:   600.00 | Avg Max Q:   6.76 | Loss:   0.1279 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R: 1229.69 | 114.5 steps/s
+Step 2190000 | Eval Reward:   575.00 | Avg Max Q:   7.19 | Loss:   0.1301 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R: 1206.25 | 110.3 steps/s
+Step 2200000 | Eval Reward:   600.00 | Avg Max Q:   6.03 | Loss:   0.2029 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  945.59 | 112.8 steps/s
+Step 2210000 | Eval Reward:   550.00 | Avg Max Q:   7.06 | Loss:   0.2107 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R: 1038.24 | 111.5 steps/s
+Step 2220000 | Eval Reward:   575.00 | Avg Max Q:   8.10 | Loss:   0.1842 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  828.95 | 112.5 steps/s
+Step 2230000 | Eval Reward:   575.00 | Avg Max Q:   6.44 | Loss:   0.2454 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  580.56 | 110.7 steps/s
+Step 2240000 | Eval Reward:   600.00 | Avg Max Q:   6.88 | Loss:   0.1881 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R: 1020.59 | 111.7 steps/s
+Step 2250000 | Eval Reward:   600.00 | Avg Max Q:   5.94 | Loss:   0.2483 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  995.59 | 112.8 steps/s
+Step 2260000 | Eval Reward:   600.00 | Avg Max Q:   7.17 | Loss:   0.2344 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  514.71 | 111.3 steps/s
+Step 2270000 | Eval Reward:   575.00 | Avg Max Q:   9.17 | Loss:   0.2116 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R: 1172.06 | 113.4 steps/s
+Step 2280000 | Eval Reward:   600.00 | Avg Max Q:   6.24 | Loss:   0.2236 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R: 1200.00 | 110.4 steps/s
+Step 2290000 | Eval Reward:   550.00 | Avg Max Q:   5.89 | Loss:   0.3180 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  16 | Train R: 1007.81 | 110.4 steps/s
+Step 2300000 | Eval Reward:   600.00 | Avg Max Q:   6.75 | Loss:   0.2975 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R: 1145.83 | 112.7 steps/s
+Step 2310000 | Eval Reward:   825.00 | Avg Max Q:   7.10 | Loss:   0.4001 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R:  597.06 | 110.7 steps/s
+Step 2320000 | Eval Reward:   500.00 | Avg Max Q:   7.30 | Loss:   0.3572 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R: 1370.59 | 112.6 steps/s
+Step 2330000 | Eval Reward:   600.00 | Avg Max Q:   7.98 | Loss:   0.5343 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  931.94 | 109.2 steps/s
+Step 2340000 | Eval Reward:     0.00 | Avg Max Q:   6.83 | Loss:   0.3388 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  684.21 | 115.6 steps/s
+Step 2350000 | Eval Reward:     0.00 | Avg Max Q:   8.31 | Loss:   0.4337 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  621.05 | 114.3 steps/s
+Step 2360000 | Eval Reward:   600.00 | Avg Max Q:   7.01 | Loss:   0.4468 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  734.72 | 110.2 steps/s
+Step 2370000 | Eval Reward:   600.00 | Avg Max Q:   7.38 | Loss:   0.4710 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  20 | Train R:  711.25 | 111.6 steps/s
+Step 2380000 | Eval Reward:   550.00 | Avg Max Q:   6.60 | Loss:   0.4949 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  850.00 | 110.8 steps/s
+Step 2390000 | Eval Reward:   600.00 | Avg Max Q:   7.43 | Loss:   0.4827 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  17 | Train R: 1341.18 | 112.1 steps/s
+Step 2400000 | Eval Reward:   550.00 | Avg Max Q:   7.67 | Loss:   0.6486 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  21 | Train R:  522.62 | 111.7 steps/s
+Step 2410000 | Eval Reward:   575.00 | Avg Max Q:   6.90 | Loss:   0.5443 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R: 1205.26 | 112.1 steps/s
+Step 2420000 | Eval Reward:   575.00 | Avg Max Q:   7.23 | Loss:   0.6781 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  997.22 | 109.8 steps/s
+Step 2430000 | Eval Reward:   500.00 | Avg Max Q:   7.64 | Loss:   0.6208 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  20 | Train R:  570.00 | 112.2 steps/s
+Step 2440000 | Eval Reward:   550.00 | Avg Max Q:   7.64 | Loss:   0.5711 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  18 | Train R:  886.11 | 110.9 steps/s
+Step 2450000 | Eval Reward:   600.00 | Avg Max Q:   8.59 | Loss:   0.6395 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  688.16 | 110.6 steps/s
+Step 2460000 | Eval Reward:   575.00 | Avg Max Q:   9.21 | Loss:   0.6356 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  21 | Train R:  476.19 | 112.4 steps/s
+Step 2470000 | Eval Reward:   700.00 | Avg Max Q:  30.21 | Loss:   0.8674 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R: 1090.79 | 110.2 steps/s
+Step 2480000 | Eval Reward:  4225.00 | Avg Max Q:   5.42 | Loss:   0.7898 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  20 | Train R:  712.50 | 110.7 steps/s
+Step 2490000 | Eval Reward:   600.00 | Avg Max Q:   7.70 | Loss:   0.7605 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  20 | Train R:  515.00 | 112.1 steps/s
+Step 2500000 | Eval Reward:  3775.00 | Avg Max Q:   7.45 | Loss:   0.6800 | Epsilon: 0.100 | Buffer:  500000 | Train Eps:  19 | Train R:  778.95 | 112.5 steps/s
+
+Final evaluation (30 episodes)...
+Final average reward (30 episodes): 3775.00
+
+Results saved to /kaggle/working/results/
+Run 2 finished at 2026-05-09 17:14:00
