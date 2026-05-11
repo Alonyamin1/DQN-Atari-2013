@@ -403,77 +403,13 @@ Based on Run 1's reward instability, we adjusted hyperparameters:
 | Run 2 | 650 | ~237 | N/A | Different hyperparams |
 | Run 3 | 1150 | ~350 | 450 (100 eps) | Paper hyperparams |
 
-**Conclusion:** All three runs show similar performance (~200-500 average) with high variance. This is consistent with the 2013 paper's reported ~1,952 average on Q*bert. The bonus score of 10,596 is based on the 2015 Nature paper which uses a **target network** for stability.
-
----
-
----
-
-## Target Network Implementation (2015 Nature Paper)
-
-### Motivation
-
-After 3 runs with the 2013 architecture, our best results were:
-- Max eval reward: 1150
-- Average eval reward: ~350-450
-- High variance with many 0-reward episodes
-
-The **bonus score of 10,596** requires the 2015 Nature DQN improvements. Initially, we believed we were restricted to the 2013 paper architecture. However, we later understood that **the 2013 paper was provided as background context**, and only the **preprocessing steps are mandatory**. The network architecture and training algorithm can be modified.
-
-### Key Change: Target Network
-
-**2013 (without target network):**
-```
-Target = r + γ * max_a' Q(s', a')  ← uses SAME network
-```
-
-**2015 (with target network):**
-```
-Target = r + γ * max_a' Q_target(s', a')  ← uses FROZEN network
-```
-
-The target network is a copy of the Q-network that is updated every C=10,000 steps. This provides stable targets during training and prevents the "moving target" problem.
-
-### New Files
-
-- `dqn_agent_WtargetNetwork.py` - DQN agent with target network
-- `train_WtargetNetwork.py` - Training script for target network runs
-
-### Hyperparameters for Target Network Runs
-
-| Parameter | Value | Notes |
-|-----------|-------|-------|
-| target_update_freq | 10,000 | C parameter from 2015 paper |
-| learning_rate | 0.00025 | Same as paper |
-| gamma | 0.99 | Same as paper |
-| buffer_size | 500,000 | Kaggle memory limit |
-| batch_size | 32 | Same as paper |
-| epsilon_start | 1.0 | Same as paper |
-| epsilon_end | 0.1 | Same as paper |
-| epsilon_decay_steps | 1,000,000 | Same as paper |
-| gradient_clipping | max_norm=10 | Relaxed (network more stable) |
-| total_steps | 2,500,000 | Kaggle time limit |
-
-### Run 4 (Target Network) - Pending
-
-**Files location:** `results/` (will be checkpoint_run4.pt, model_run4.pt, etc.)
-
-**Command:**
-```bash
-python train_WtargetNetwork.py --run_id 4 --buffer_size 500000
-```
-
-**Expected improvements:**
-- More stable Q-values (no explosion)
-- Smoother learning curve
-- Higher average rewards (target: 1000-2000+)
-- Potential to reach bonus score (10,596)
+**Conclusion:** All three runs show similar performance (~200-500 average) with high variance. This is consistent with the 2013 paper's reported ~1,952 average on Q*bert.
 
 ---
 
 ## Lessons Learned
 
-1. **DQN without target network is unstable** - The 2013 paper's claim of "no divergence" may have been specific to their exact setup or lucky random seeds.
+1. **DQN without target network can be unstable** - The 2013 paper's single Q-network approach requires careful hyperparameter tuning.
 
 2. **Game choice matters** - Stick to games tested in the original paper for best results.
 
@@ -482,5 +418,3 @@ python train_WtargetNetwork.py --run_id 4 --buffer_size 500000
 4. **Gradient clipping helps** - Even if not in the paper, it's a practical necessity for stability.
 
 5. **Pixel normalization is important** - Neural networks train better with normalized inputs.
-
-6. **Target network is crucial for high scores** - The 2015 improvement (target network) is necessary to reach scores above ~1500 on Q*bert.
